@@ -5,7 +5,7 @@
 Before taking any action, you **must** complete the following steps at the beginning of every new chat session:
 
 1. **Analyze Project Structure**: Use the available tools to list the entire file and directory structure of the project. State that you have done this.
-2. **Review Configuration Files**: Read the contents of all configuration files (`astro.config.mjs`, `tsconfig.json`, `biome.json`, `dyad.config.json`, `package.json`). State that you have done this.
+2. **Review Configuration Files**: Read the contents of all configuration files (`astro.config.mjs`, `tsconfig.json`, `biome.json`, `.fallowrc.json`, `package.json`). State that you have done this.
 3. **Read Full File Content**: When reading a file, you **must** read the entire file to ensure you have the full context. Do not read partial file contents.
 4. **Mandatory Research First**: For any package, library, or API that is relevant to the user's request, you **must** look up its current documentation before writing code that uses it. Do not rely on baked-in knowledge. Always verify first.
 5. **Summarize Onboarding**: After completing the above, provide a brief summary of the key rules from this document to confirm you have understood them.
@@ -73,8 +73,38 @@ Astro renders pages on the server by default. Follow these rules:
 - **Shared components** used across multiple pages go in `src/components/`.
 - **Page-specific components** used by only one page should be co-located — place them in the same directory as the page or directly in the page file.
 - **Layouts** wrap pages with shared structure. Put them in `src/layouts/`. Do not use layouts for one-off page structures.
-- **Utility functions** not tied to a component go in `src/utils/` (create if needed).
+- **Utility functions** not tied to a component go in `src/lib/`. The `cn()` helper for Tailwind class merging lives in `src/lib/utils.ts`.
 - Do not create deep nesting. Flat is better than over-organized.
+
+## Library Usage Guidelines
+
+### Styling
+- **Use**: Tailwind CSS utility classes exclusively. Use the `cn()` helper from `src/lib/utils.ts` to merge conditional classes.
+- **Avoid**: CSS-in-JS libraries (styled-components, Emotion), CSS modules, or inline `style` props. Tailwind handles all styling.
+- **Global styles**: Reserve `src/styles/global.css` for Tailwind directives, CSS variables, and `@theme`/`@utility` definitions only. No component-specific styles here.
+
+### Icons
+- **Use**: `lucide-react` for icons. Install if needed (`bun add lucide-react`).
+- **Avoid**: Other icon libraries unless lucide doesn't provide what's needed.
+
+### Forms
+- **Use**: React Hook Form (`react-hook-form`) for form state and validation.
+- **Use**: Zod for schema validation with `@hookform/resolvers`.
+- **Avoid**: Hand-rolled form handling or other form libraries.
+
+### State Management
+- **Use**: React's built-in `useState` and `useReducer` for component-level state.
+- **Use**: React Context API for shared state across islands.
+- **Avoid**: External state libraries (Redux, Zustand, Jotai) unless the app complexity clearly justifies them.
+
+### Animations
+- **Use**: Tailwind's built-in transition utilities (`transition`, `duration-*`, `ease-*`).
+- **Use**: CSS `@keyframes` in `src/styles/global.css` for custom animations.
+- **Avoid**: Heavy animation libraries. Prefer CSS-first solutions.
+
+### Utilities
+- **Use**: `clsx` + `tailwind-merge` via the `cn()` helper in `src/lib/utils.ts` for class merging.
+- **Avoid**: `classnames` (replaced by `clsx`), manual string concatenation for class lists.
 
 ## Tailwind CSS v4 Notes
 
