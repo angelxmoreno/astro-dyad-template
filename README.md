@@ -1,43 +1,45 @@
-# Astro Starter Kit: Minimal
+# Astro + Dyad Template
 
-```sh
-bun create astro@latest -- --template minimal
+Minimal starter for [Dyad](https://www.dyad.sh) with Astro, React islands, and Tailwind CSS v4.
+
+## Stack
+
+- **Astro 6** — static-first framework with island architecture
+- **React 19** — hydrated as Astro islands via `client:*` directives
+- **Tailwind CSS v4** — via `@tailwindcss/vite` plugin (no PostCSS config)
+- **TypeScript** — strict mode
+- **Bun** — package manager and runtime
+
+## Project Structure
+
+```
+src/
+├── components/    # React island components
+├── layouts/       # Shared page layouts
+├── pages/         # File-based routes
+└── styles/         # Global CSS (Tailwind import)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command          | Action                              |
+| ---------------- | ------------------------------------ |
+| `bun dev`        | Start dev server on `localhost:5173` |
+| `bun build`      | Production build                    |
+| `bun preview`    | Preview production build            |
+| `bun run check`  | TypeScript + Astro diagnostics      |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Dyad Compatibility
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- Dev server runs on **port 5173** (configured in `astro.config.mjs`)
+- `AI_RULES.md` provides context for AI-assisted development
+- `dyad.config.json` specifies the dev command and port
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## React Islands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Use `client:*` directives to control hydration:
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `client:load` — hydrate immediately
+- `client:visible` — hydrate on viewport entry
+- `client:idle` — hydrate on browser idle
+- `client:only="react"` — client-only, skip SSR
