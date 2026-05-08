@@ -1,0 +1,19 @@
+AI_RULES.md
+  s_0e162164c19792::t_e592b24cbd735d 36-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "e6d49b79aa18804da478b2d6ece3868de0f747f0",
+  "prompts": {},
+  "sessions": {
+    "s_0e162164c19792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cfa5bfd4-ab13-4a29-a458-a490b85c3ecb",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
