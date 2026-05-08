@@ -1,5 +1,15 @@
 # AI Rules — Astro + Dyad Template
 
+## 0. Onboarding Checklist (Mandatory First Steps)
+
+Before taking any action, you **must** complete the following steps at the beginning of every new chat session:
+
+1. **Analyze Project Structure**: Use the available tools to list the entire file and directory structure of the project. State that you have done this.
+2. **Review Configuration Files**: Read the contents of all configuration files (`astro.config.mjs`, `tsconfig.json`, `biome.json`, `dyad.config.json`, `package.json`). State that you have done this.
+3. **Read Full File Content**: When reading a file, you **must** read the entire file to ensure you have the full context. Do not read partial file contents.
+4. **Mandatory Research First**: For any package, library, or API that is relevant to the user's request, you **must** look up its current documentation before writing code that uses it. Do not rely on baked-in knowledge. Always verify first.
+5. **Summarize Onboarding**: After completing the above, provide a brief summary of the key rules from this document to confirm you have understood them.
+
 ## Stack
 
 - **Framework:** Astro 6 with React islands
@@ -39,6 +49,33 @@ React components use Astro's island architecture. Add a `client:*` directive to 
 - `client:idle` — hydrate once the browser is idle
 - `client:only="react"` — skip SSR, render only on the client
 
+## Import Conventions
+
+- **React components** must use the `.tsx` file extension. Astro components use `.astro`.
+- **React imports**: always import from `react` and `react-dom` directly. Do not use legacy `create-react-app` patterns.
+- **Astro page imports**: import React components with a `client:*` directive — never render them without one or they will be static HTML only.
+- **Astro component imports**: import `.astro` files with relative paths — Astro does not resolve them as packages.
+- **CSS imports**: import global styles in layouts only, not in individual pages. Use Tailwind utility classes for page-level styling.
+- **Never** import `react-router-dom` — if client-side routing is needed, use Astro's file-based routing or add a proper integration.
+
+## SSR Constraints
+
+Astro renders pages on the server by default. Follow these rules:
+
+- **No browser APIs in frontmatter**: The `---` code fence at the top of `.astro` files runs on the server. Never access `window`, `document`, `localStorage`, `sessionStorage`, or `navigator` there. These objects do not exist during SSR and will cause a crash.
+- **Browser APIs in React islands**: Browser APIs are safe inside React components rendered with `client:*` directives — these run in the browser after hydration.
+- **Server-only files**: Files ending in `.server.ts` or `.server.js` are restricted to server-only imports. Never import client-side code from them.
+- **Client-only files**: Files ending in `.client.ts` or `.client.js` are restricted to client-only imports. Never import server-side code from them.
+- **Await promises**: All asynchronous operations in Astro frontmatter (e.g. `fetch`, database calls) **must** be `await`ed. Unresolved promises passed to the template will cause errors.
+
+## Component Placement
+
+- **Shared components** used across multiple pages go in `src/components/`.
+- **Page-specific components** used by only one page should be co-located — place them in the same directory as the page or directly in the page file.
+- **Layouts** wrap pages with shared structure. Put them in `src/layouts/`. Do not use layouts for one-off page structures.
+- **Utility functions** not tied to a component go in `src/utils/` (create if needed).
+- Do not create deep nesting. Flat is better than over-organized.
+
 ## Tailwind CSS v4 Notes
 
 - Configuration is CSS-based — no `tailwind.config.mjs` file.
@@ -55,3 +92,9 @@ React components use Astro's island architecture. Add a `client:*` directive to 
 - `test-only-dependencies` rule is off in `.fallowrc.json` — Astro, `@astrojs/react`, and `@tailwindcss/vite` are production deps misclassified as test-only.
 - Biome overrides in `biome.json` suppress `noUnusedImports` and `noUnusedVariables` for `.astro` files (frontmatter variables used in templates are not dead code).
 - Commit messages follow conventional commits in past tense.
+
+## Communication Style
+
+- **Explain before acting**: Before executing a command, making a file change, or calling a tool, state what you are about to do and why. This provides transparency and allows for course correction.
+- **Show your work**: When modifying code, show the relevant before/after so the intent is clear.
+- **Flag uncertainty**: If you are unsure about a package API, a config option, or the right approach, say so and suggest looking it up rather than guessing.
