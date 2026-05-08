@@ -1,4 +1,4 @@
 {
-  "devCommand": "bun run dev",
-  "devPort": 5173
+    "devCommand": "bun run dev",
+    "devPort": 5173
 }
