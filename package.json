@@ -12,6 +12,9 @@
         "check": "astro check",
         "astro": "astro",
         "type:check": "tsc --noEmit",
+        "dupe:check": "fallow dupes",
+        "code:check": "fallow dead-code",
+        "health:check": "fallow health",
         "lint": "biome check .",
         "lint:fix": "biome check --write ."
     },
@@ -28,6 +31,7 @@
         "typescript": "^6.0.3"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.4.14"
+        "@biomejs/biome": "^2.4.14",
+        "fallow": "^2.67.0"
     }
 }

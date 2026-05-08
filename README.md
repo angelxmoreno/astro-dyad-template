@@ -28,6 +28,9 @@ src/
 | `bun build`      | Production build                    |
 | `bun preview`    | Preview production build            |
 | `bun run check`  | TypeScript + Astro diagnostics      |
+| `bun run type:check` | TypeScript type check only (`tsc --noEmit`) |
+| `bun run lint`   | Biome lint + format check           |
+| `bun run lint:fix` | Biome lint + format with auto-fix |
 
 ## Dyad Compatibility
 

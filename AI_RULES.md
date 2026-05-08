@@ -14,6 +14,10 @@
 | `bun run dev`      | Start dev server            |
 | `bun run build`    | Production build            |
 | `bun run preview`  | Preview production build    |
+| `bun run check`    | Astro + TypeScript diagnostics |
+| `bun run type:check` | TypeScript type check only (`tsc --noEmit`) |
+| `bun run lint`     | Biome lint + format check  |
+| `bun run lint:fix` | Biome lint + format with auto-fix |
 
 ## Dev Server Port
 
@@ -45,5 +49,9 @@ React components use Astro's island architecture. Add a `client:*` directive to 
 
 - Use `protected` over `private` for class members.
 - Never use `any` — type everything properly or use `unknown`.
-- Run `bun check` before considering work done.
+- Run `bun run check` before considering work done.
+- Run `bun run lint` before considering work done. Use `bun run lint:fix` to auto-fix issues.
+- Run `bun run type:check` to check TypeScript types independently of Astro.
+- `test-only-dependencies` rule is off in `.fallowrc.json` — Astro, `@astrojs/react`, and `@tailwindcss/vite` are production deps misclassified as test-only.
+- Biome overrides in `biome.json` suppress `noUnusedImports` and `noUnusedVariables` for `.astro` files (frontmatter variables used in templates are not dead code).
 - Commit messages follow conventional commits in past tense.
