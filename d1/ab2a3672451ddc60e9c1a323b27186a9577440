@@ -1,0 +1,41 @@
+dyad.config.json
+  s_0e162164c19792::t_286bd4a0e523f7 1-4
+astro.config.mjs
+  s_0e162164c19792::t_07d062bde3495c 2-4,6-14
+src/layouts/Base.astro
+  s_0e162164c19792::t_aec34f91bdcc4a 1-22
+tsconfig.json
+  s_0e162164c19792::t_35ab91148104f8 4-9
+src/components/Counter.tsx
+  s_0e162164c19792::t_a6448768eccf02 1-33
+src/pages/index.astro
+  s_0e162164c19792::t_5c8480aed96fe9 2-3,6-16
+package.json
+  s_0e162164c19792::t_7d2ed4bf833642 12
+  s_0e162164c19792::t_3f4385973b423f 16,24-25
+  s_0e162164c19792::t_182698a47ca470 17-23
+bun.lock
+  ai_agent 7-11,13-16,21-22,27-28,33-34,37-56,61-64,67-74,83-96,201-206,209-210,213-214,283-320,333-336,341-366,381-382,385-388,397,401-402,405-408,415-416,431-432,461-468,475-476,485-486,491-492,505-508,513-514,547-548,555-558,561-566,569-594,693-694,705-706,733-734,743-744,751-757,783-788,803-804,819-820,823-824,827-830,845-850,881-882,893-926,931-932,935-944,953-974,985-992,994-995
+src/styles/global.css
+  s_0e162164c19792::t_33b40a43d20d17 1
+README.md
+  s_0e162164c19792::t_ae6726c07ba2bc 1,3,5,7-11,13,15-20,23,25-30,32,34-36,38,40,42-45
+AI_RULES.md
+  s_0e162164c19792::t_935eeda6c9e1f0 1-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "d1ab2a3672451ddc60e9c1a323b27186a9577440",
+  "prompts": {},
+  "sessions": {
+    "s_0e162164c19792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cfa5bfd4-ab13-4a29-a458-a490b85c3ecb",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
