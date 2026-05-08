@@ -1,0 +1,25 @@
+.fallowrc.json
+  s_0e162164c19792::t_06fb00fc806c56 17
+  s_0e162164c19792::t_00bcde2f263f54 16,18
+README.md
+  s_0e162164c19792::t_404667a0378e46 31-33
+AI_RULES.md
+  s_0e162164c19792::t_b0d72011f21f22 17-20
+  s_0e162164c19792::t_9a8cc0f4699ac1 52-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "ae2d02b641a09e4c98ad4cb594b7402a7b0ae4dc",
+  "prompts": {},
+  "sessions": {
+    "s_0e162164c19792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cfa5bfd4-ab13-4a29-a458-a490b85c3ecb",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
