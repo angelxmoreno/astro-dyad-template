@@ -33,6 +33,58 @@ Before taking any action, you **must** complete the following steps at the begin
 
 The dev server **must run on port 5173**. This is configured in `astro.config.mjs` under `server.port`. Do not change this — Dyad's preview pane targets `http://localhost:5173` and will break on any other port.
 
+## Server Rendering
+
+The default output mode is `static`. Switch to `hybrid` or `server` in `astro.config.mjs` when the app needs server-side data fetching, dynamic routes with real-time data, or API endpoints.
+
+- **`hybrid`** — most pages are static; individual pages opt into SSR with `export const prerender = false`. Best for apps that are mostly static but need a few dynamic routes or API endpoints.
+- **`server`** — all pages are SSR by default; individual pages opt into static with `export const prerender = true`. Best for apps where most pages need server-side data.
+
+When switching to `hybrid` or `server`, add the appropriate adapter (e.g. `@astrojs/node`) and set `output` in `astro.config.mjs`.
+
+## Data Fetching Boundary
+
+This is the most common source of confusion when working with Astro. Where you fetch data depends on context:
+
+- **Astro frontmatter (server only)** — Fetch data that the page needs to render. This is the primary data fetching location. Runs once on the server, sends HTML to the client. Use `fetch`, database queries, or any server-side API here. This data is available in the template but **not** in React islands unless passed as props.
+- **React islands (client only)** — Fetch data that changes after page load or needs interactivity. Use `useEffect`, `fetch`, or SWR/TanStack Query here. Islands can also call Astro API endpoints (`src/pages/api/`) to fetch data from the server.
+- **API routes** (`src/pages/api/`) — Server endpoints that return JSON. Use these when a React island needs server-side data that wasn't passed as props. Good for lazy-loading additional content (e.g. nested comments, infinite scroll).
+
+**Never** fetch the same data in both frontmatter and a React island. Pick one location and pass data down or up through props/API.
+
+## Middleware
+
+Middleware runs on **every request** before any page renders. Create `src/middleware.ts` with an `onRequest` function when you need:
+
+- Authentication checks and redirects
+- Adding response headers (caching, CORS, security)
+- Request logging or timing
+- A/B testing or feature flags per request
+
+Do **not** add middleware just for data fetching — that belongs in frontmatter or API routes. Middleware adds overhead to every request, so only use it when logic must run before all pages.
+
+## View Transitions
+
+Astro has built-in page transitions via the `<ViewTransitions />` component. Add it to the layout `<head>` to enable smooth navigation without full-page reloads:
+
+```astro
+---
+import { ViewTransitions } from 'astro:transitions';
+---
+<head>
+  <ViewTransitions />
+</head>
+```
+
+Use `transition:animate` directives on elements for enter/exit animations. Use `transition:persist` to preserve DOM state across navigations (e.g. keeping a video playing or a form filled).
+
+## Environment Variables
+
+- **In Astro frontmatter and API routes**: use `import.meta.env.PUBLIC_*` for client-exposed vars and `import.meta.env.*` (no prefix) for server-only vars.
+- **In React islands**: only `import.meta.env.PUBLIC_*` variables are available (they're inlined at build time). Server-only env vars are **not** accessible in client code.
+- **Never** use `process.env` — this is a Node.js convention, not an Astro one. Always use `import.meta.env`.
+- Create a `.env` file in the project root for local development. Prefix with `PUBLIC_` for client-side access.
+
 ## Architecture
 
 - **Pages** live in `src/pages/` — Astro file-based routing.
